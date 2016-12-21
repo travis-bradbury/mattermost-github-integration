@@ -35,14 +35,14 @@ def root():
 
     msg = ""
     if event == "Issue Hook":
-        if data['action'] == "open":
+        if data['object_attributes']['action'] == "open":
             msg = Issue(data).opened()
-        elif data['action'] == "close":
+        elif data['object_attributes']['action'] == "close":
             msg = Issue(data).closed()
-        elif data['action'] == "update":
+        elif data['object_attributes']['action'] == "update":
             msg = Issue(data).updated()
     elif event == "Note Hook":
-        if data['noteable_type'] == "Issue":
+        if data['object_attributes']['noteable_type'] == "Issue":
             msg = Comment(data).created()
 
     print msg
