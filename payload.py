@@ -36,7 +36,7 @@ class Issue(Payload):
         self.number = self.data['object_attributes']['id']
         if 'title' in self.data['object_attributes']:
             self.title = self.data['object_attributes']['title']
-        else
+        else:
             self.title = ""
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['description']
