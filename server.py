@@ -33,7 +33,7 @@ def root():
     print event;
 
     msg = ""
-    if event == "Issue Hook":
+    if event == "Note Hook":
         if data['action'] == "open":
             msg = Issue(data).opened()
         elif data['action'] == "close":
