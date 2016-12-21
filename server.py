@@ -61,7 +61,7 @@ def root():
             print "Notification ignored (repository is blacklisted)."
             return "Notification ignored (repository is blacklisted)."
     else:
-        print "Not implemented", 400
+        print "Not implemented"
         return "Not implemented", 400
 
 def post(text, url, channel):
