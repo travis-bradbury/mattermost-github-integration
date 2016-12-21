@@ -7,7 +7,7 @@ import config
 import hmac
 import hashlib
 
-from payload import PullRequest, PullRequestComment, Issue, IssueComment, Repository, Branch, Push, Tag, CommitComment
+from payload import Issue, Comment, Repository
 
 app = Flask(__name__)
 
