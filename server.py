@@ -52,6 +52,7 @@ def root():
         hook_info = get_hook_info(data)
         if hook_info:
             url, channel = get_hook_info(data)
+            print 'about to post'
             post(msg, url, channel)
             print "Notification successfully posted to Mattermost"
             return "Notification successfully posted to Mattermost"
@@ -69,8 +70,12 @@ def post(text, url, channel):
     data['username'] = config.USERNAME
     data['icon_url'] = config.ICON_URL
 
+    print 'really about to post'
+
     headers = {'Content-Type': 'application/json'}
     r = requests.post(url, headers=headers, data=json.dumps(data), verify=False)
+
+    print 'just posted'
 
     if r.status_code is not requests.codes.ok:
         print 'Encountered error posting to Mattermost URL %s, status=%d, response_body=%s' % (url, r.status_code, r.json())
