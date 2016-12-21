@@ -43,13 +43,14 @@ def root():
             msg = Issue(data).updated()
     elif event == "Note Hook":
         if data['object_attributes']['noteable_type'] == "Issue":
-            msg = 'Test'
-            #msg = Comment(data).created()
+            msg = Comment(data).created()
 
     print msg
 
     if msg:
+        print 'msg exists'
         hook_info = get_hook_info(data)
+        print hook_info
         if hook_info:
             url, channel = get_hook_info(data)
             print 'about to post'
