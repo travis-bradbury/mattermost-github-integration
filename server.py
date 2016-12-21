@@ -28,7 +28,9 @@ def root():
             return 'Invalid or missing X-Hub-Signature', 400
 
     data = request.json
-    event = request.headers['X-Gitlab-Token']
+    event = request.headers['X-Gitlab-Event']
+
+    print event;
 
     msg = ""
     if event == "Issue Hook":
