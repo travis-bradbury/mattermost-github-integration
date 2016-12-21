@@ -44,13 +44,17 @@ def root():
         if data['action'] == "created":
             msg = Comment(data).created()
 
+    print msg
+
     if msg:
         hook_info = get_hook_info(data)
         if hook_info:
             url, channel = get_hook_info(data)
             post(msg, url, channel)
+            print "Notification successfully posted to Mattermost"
             return "Notification successfully posted to Mattermost"
         else:
+            print "Notification ignored (repository is blacklisted)."
             return "Notification ignored (repository is blacklisted)."
     else:
         return "Not implemented", 400
