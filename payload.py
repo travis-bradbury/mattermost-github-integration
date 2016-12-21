@@ -59,8 +59,8 @@ class Issue(Payload):
 class Comment(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
-        self.number = self.data['issue']['number']
-        self.title  = self.data['issue']['title']
+        self.number = self.data['object_attributes']['id']
+        self.title  = self.data['object_attributes']['title']
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['note']
 

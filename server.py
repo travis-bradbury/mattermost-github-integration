@@ -43,7 +43,8 @@ def root():
             msg = Issue(data).updated()
     elif event == "Note Hook":
         if data['object_attributes']['noteable_type'] == "Issue":
-            msg = Comment(data).created()
+            msg = 'Test'
+            #msg = Comment(data).created()
 
     print msg
 
