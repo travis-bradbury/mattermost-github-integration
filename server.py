@@ -82,7 +82,12 @@ def post(text, url, channel):
         print 'Encountered error posting to Mattermost URL %s, status=%d, response_body=%s' % (url, r.status_code, r.json())
 
 def get_hook_info(data):
+    if 'project' in data:
+        repo = data['project']['namespace']
+        if repo in config.MATTERMOST_WEBHOOK_URLS:
+            return config.MATTERMOST_WEBHOOK_URLS[repo]
     return config.MATTERMOST_WEBHOOK_URLS['default']
+
 
 if __name__ == "__main__":
     app.run(
