@@ -7,9 +7,9 @@ class Payload(object):
     def user_link(self):
         name   = self.data['user']['name']
         avatar = self.data['user']['avatar_url']
-        return self.create_user_link(name, url, avatar)
+        return self.create_user_link(name, avatar)
 
-    def create_user_link(self, name, url, avatar):
+    def create_user_link(self, name, avatar):
         if SHOW_AVATARS:
             return "![](%s) [%s]" % (avatar, name)
         return "[%s]" % (name)
