@@ -20,7 +20,7 @@ def root():
        return 'Content-Type must be application/json and the request body must contain valid JSON', 400
 
     if SECRET:
-        signature = request.headers.get('X-Hub-Signature', None)
+        signature = request.headers.get('X-Gitlab-Token', None)
         sig2 = SECRET.copy()
         sig2.update(request.data)
 
@@ -28,51 +28,19 @@ def root():
             return 'Invalid or missing X-Hub-Signature', 400
 
     data = request.json
-    event = request.headers['X-Github-Event']
+    event = request.headers['X-Gitlab-Token']
 
     msg = ""
-    if event == "ping":
-        msg = "ping from %s" % data['repository']['full_name']
-    elif event == "pull_request":
-        if data['action'] == "opened":
-            msg = PullRequest(data).opened()
-        elif data['action'] == "closed":
-            msg = PullRequest(data).closed()
-        elif data['action'] == "assigned":
-            msg = PullRequest(data).assigned()
-    elif event == "issues":
-        if data['action'] == "opened":
+    if event == "Issue Hook":
+        if data['action'] == "open":
             msg = Issue(data).opened()
-        elif data['action'] == "closed":
+        elif data['action'] == "close":
             msg = Issue(data).closed()
-        elif data['action'] == "labeled":
-            msg = Issue(data).labeled()
-        elif data['action'] == "assigned":
-            msg = Issue(data).assigned()
-    elif event == "issue_comment":
+        elif data['action'] == "update":
+            msg = Issue(data).updated()
+    elif event == "Note Hook":
         if data['action'] == "created":
-            msg = IssueComment(data).created()
-    elif event == "repository":
-        if data['action'] == "created":
-            msg = Repository(data).created()
-    elif event == "create":
-        if data['ref_type'] == "branch":
-            msg = Branch(data).created()
-        elif data['ref_type'] == "tag":
-            msg = Tag(data).created()
-    elif event == "delete":
-        if data['ref_type'] == "branch":
-            msg = Branch(data).deleted()
-    elif event == "pull_request_review_comment":
-        if data['action'] == "created":
-            msg = PullRequestComment(data).created()
-    elif event == "push":
-        if not (data['deleted'] and data['forced']):
-            if not data['ref'].startswith("refs/tags/"):
-                msg = Push(data).commits()
-    elif event == "commit_comment":
-        if data['action'] == "created":
-            msg = CommitComment(data).created()
+            msg = Comment(data).created()
 
     if msg:
         hook_info = get_hook_info(data)
