@@ -83,7 +83,7 @@ def post(text, url, channel):
 
 def get_hook_info(data):
     if 'project' in data:
-        repo = data['project']['namespace']
+        repo = data['project']['name']
         if repo in config.MATTERMOST_WEBHOOK_URLS:
             return config.MATTERMOST_WEBHOOK_URLS[repo]
     return config.MATTERMOST_WEBHOOK_URLS['default']
