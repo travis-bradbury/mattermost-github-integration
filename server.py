@@ -30,10 +30,11 @@ def root():
     data = request.json
     event = request.headers['X-Gitlab-Event']
 
-    print event;
+    print event
+    print data
 
     msg = ""
-    if event == "Note Hook":
+    if event == "Issue Hook":
         if data['action'] == "open":
             msg = Issue(data).opened()
         elif data['action'] == "close":
@@ -41,7 +42,7 @@ def root():
         elif data['action'] == "update":
             msg = Issue(data).updated()
     elif event == "Note Hook":
-        if data['action'] == "created":
+        if data['noteable_type'] == "Issue":
             msg = Comment(data).created()
 
     print msg
