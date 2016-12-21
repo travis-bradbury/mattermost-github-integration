@@ -34,10 +34,7 @@ class Issue(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
         self.number = self.data['object_attributes']['id']
-        if 'title' in self.data['object_attributes']:
-            self.title = self.data['object_attributes']['title']
-        else:
-            self.title = ""
+        self.title = self.data['object_attributes']['title']
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['description']
 
@@ -63,7 +60,10 @@ class Comment(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
         self.number = self.data['object_attributes']['id']
-        self.title  = self.data['object_attributes']['title']
+        if 'title' in self.data['object_attributes']:
+            self.title = self.data['object_attributes']['title']
+        else:
+            self.title = ""
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['note']
 
