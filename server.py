@@ -7,7 +7,7 @@ import config
 import hmac
 import hashlib
 
-from payload import Issue, Comment, Repository
+from payload import Issue, Comment
 
 app = Flask(__name__)
 
