@@ -59,16 +59,23 @@ class Issue(Payload):
 class Comment(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
-        self.number = self.data['object_attributes']['id']
-        if 'title' in self.data['object_attributes']:
-            self.title = self.data['object_attributes']['title']
+        if 'commit' in self.data:
+            self.number = self.data['commit']['id']
+	    self.title = self.data['commit']['title']
+        elif 'merge_request' in self.data:
+            self.number = self.data['merge_request']['id']
+	    self.title = self.data['merge_request']['title']
+        elif 'issue' in self.data:
+            self.number = self.data['issue']['id']
+	    self.title = self.data['issue']['title']
         else:
+            self.number = self.data['object_attributes']['id']
             self.title = ""
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['note']
 
     def created(self):
         body = self.preview(self.body)
-        msg = """%s commented on [#%s %s](%s): > %s""" % (self.user_link(), self.number, self.title, self.url, body)
+        msg = """%s commented on [#%s %s](%s): %s""" % (self.user_link(), self.number, self.title, self.url, body)
         return msg
 
