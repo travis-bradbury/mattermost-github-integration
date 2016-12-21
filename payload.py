@@ -6,7 +6,7 @@ class Payload(object):
 
     def user_link(self):
         name   = self.data['user']['name']
-        avatar = self.data['user']['avatar_url']
+        avatar = self.data['user']['avatar_url'] + "&s=18"
         return self.create_user_link(name, avatar)
 
     def create_user_link(self, name, avatar):
