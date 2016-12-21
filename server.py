@@ -31,7 +31,7 @@ def root():
     event = request.headers['X-Gitlab-Event']
 
     print event
-    print data
+    #print data
 
     msg = ""
     if event == "Issue Hook":
