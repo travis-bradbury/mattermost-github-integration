@@ -108,7 +108,7 @@ class Pipeline(Payload):
     def default(self):
         msg = """%s %s on %s\n""" % (self.ref, self.status, self.commit)
 	for build in self.data['builds']:
-	    msg += """* %s: %s %s""" % (build['stage'], build['name'], ['status'])
+	    msg += """* %s: %s %s\n""" % (build['stage'], build['name'], build['status'])
         return msg
 
 
