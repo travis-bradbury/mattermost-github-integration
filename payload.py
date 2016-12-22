@@ -46,7 +46,7 @@ class Payload(object):
 class Issue(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
-        self.number = self.data['object_attributes']['id']
+        self.number = self.data['object_attributes']['iid']
         self.title = self.data['object_attributes']['title']
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['description']
