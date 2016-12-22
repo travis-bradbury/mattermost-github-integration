@@ -14,7 +14,7 @@ class Payload(object):
 
     def create_user_link(self, name, avatar):
         if SHOW_AVATARS:
-            return """!<img src="%s" width="40" height="40" /> [%s]""" % (avatar, name)
+            return "![](%s) [%s]" % (avatar, name)
         return "[%s]" % (name)
 
     def repo_link(self):

@@ -1,0 +1,14 @@
+[Unit]
+Description=Mattermost gitlab integration
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=mmuser
+Group=mmuser
+ExecStart=/home/mmuser/mattermost-github-integration/server.py
+RestartSec=30
+LimitNOFILE=49152
+
+[Install]
+WantedBy=multi-user.target
