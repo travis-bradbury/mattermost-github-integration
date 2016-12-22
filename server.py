@@ -7,7 +7,7 @@ import config
 import hmac
 import hashlib
 
-from payload import Issue, Comment, Push
+from payload import Issue, Comment, Push, Pipeline
 
 app = Flask(__name__)
 
@@ -45,6 +45,8 @@ def root():
         msg = Push(data).default()
     elif event == "Note Hook":
         msg = Comment(data).default()
+    elif event == "Pipeline Hook":
+        msg = Pipeline(data).default()
 
     print msg
 
