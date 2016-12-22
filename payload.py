@@ -1,3 +1,5 @@
+import re
+
 from config import SHOW_AVATARS
 from config import GITLAB_URL
 
