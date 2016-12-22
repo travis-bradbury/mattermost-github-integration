@@ -101,7 +101,7 @@ class Pipeline(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
 	self.number = self.data['object_attributes']['id']
-	self.red = self.data['object_attributes']['ref']
+	self.ref = self.data['object_attributes']['ref']
 	self.status = self.data['object_attributes']['status']
 	self.commit = """[%s](%s): %s""" % (self.data['commit']['id'], self.data['commit']['url'], self.data['commit']['message'])
 
