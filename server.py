@@ -7,7 +7,7 @@ import config
 import hmac
 import hashlib
 
-from payload import Issue, Comment
+from payload import Issue, Comment, Push
 
 app = Flask(__name__)
 
@@ -41,19 +41,17 @@ def root():
             msg = Issue(data).closed()
         elif data['object_attributes']['action'] == "update":
             msg = Issue(data).updated()
+    elif event == "Push Hook":
+        msg = Push(data).created()
     elif event == "Note Hook":
-        if data['object_attributes']['noteable_type'] == "Issue":
-            msg = Comment(data).created()
+        msg = Comment(data).created()
 
     print msg
 
     if msg:
-        print 'msg exists'
         hook_info = get_hook_info(data)
-        print hook_info
         if hook_info:
             url, channel = get_hook_info(data)
-            print 'about to post'
             post(msg, url, channel)
             print "Notification successfully posted to Mattermost"
             return "Notification successfully posted to Mattermost"
