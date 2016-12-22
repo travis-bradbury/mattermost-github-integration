@@ -68,8 +68,8 @@ class Push(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
 
-    def opened(self):
-        msg = """%s pushed to %s:""" % (self.date['user_name'], self.repo_link())
+    def default(self):
+        msg = """%s pushed to %s:\n""" % (self.date['user_name'], self.repo_link())
 	for commit in self.data['commits']:
             msg += """* [%s](%s): %s""" % (commit['id'], commit['url'], commit['message'])
         return msg
@@ -92,8 +92,23 @@ class Comment(Payload):
         self.url    = self.data['object_attributes']['url']
         self.body   = self.data['object_attributes']['note']
 
-    def created(self):
+    def default(self):
         body = self.preview(self.body)
-        msg = """%s commented on [#%s %s](%s) > %s""" % (self.user_link(), self.number, self.title, self.url, body)
+        msg = """%s commented on [#%s %s](%s): %s""" % (self.user_link(), self.number, self.title, self.url, body)
         return msg
+
+class Pipeline(Payload):
+    def __init__(self, data):
+        Payload.__init__(self, data)
+	self.number = self.data['object_attributes']['id']
+	self.red = self.data['object_attributes']['ref']
+	self.status = self.data['object_attributes']['status']
+	self.commit = """[%s](%s): %s""" % (self.data['commit']['id'], self.data['commit']['url'], self.date['commit']['message'])
+
+    def default(self):
+        msg = """%s %s on %s\n""" % (self.ref, self.status, self.commit)
+	for build in self.data['builds']:
+	    msg += """* %s: %s %s""" % (build['stage'], build['name'], ['status'])
+        return msg
+
 

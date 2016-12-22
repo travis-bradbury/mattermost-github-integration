@@ -42,9 +42,9 @@ def root():
         elif data['object_attributes']['action'] == "update":
             msg = Issue(data).updated()
     elif event == "Push Hook":
-        msg = Push(data).created()
+        msg = Push(data).default()
     elif event == "Note Hook":
-        msg = Comment(data).created()
+        msg = Comment(data).default()
 
     print msg
 
