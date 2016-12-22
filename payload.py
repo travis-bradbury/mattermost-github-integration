@@ -103,7 +103,7 @@ class Pipeline(Payload):
 	self.number = self.data['object_attributes']['id']
 	self.red = self.data['object_attributes']['ref']
 	self.status = self.data['object_attributes']['status']
-	self.commit = """[%s](%s): %s""" % (self.data['commit']['id'], self.data['commit']['url'], self.date['commit']['message'])
+	self.commit = """[%s](%s): %s""" % (self.data['commit']['id'], self.data['commit']['url'], self.data['commit']['message'])
 
     def default(self):
         msg = """%s %s on %s\n""" % (self.ref, self.status, self.commit)
