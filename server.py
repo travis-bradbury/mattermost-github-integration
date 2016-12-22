@@ -46,7 +46,8 @@ def root():
     elif event == "Note Hook":
         msg = Comment(data).default()
     elif event == "Pipeline Hook":
-        msg = Pipeline(data).default()
+        if self.data['object_attributes']['status'] != 'pending' && self.data['object_attributes']['status'] != 'running':
+            msg = Pipeline(data).default()
 
     print msg
 
