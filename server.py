@@ -41,8 +41,6 @@ def root():
             msg = Issue(data).opened()
         elif data['object_attributes']['action'] == "close":
             msg = Issue(data).closed()
-        elif data['object_attributes']['action'] == "update":
-            msg = Issue(data).updated()
     elif event == "Push Hook":
         msg = Push(data).default()
     elif event == "Note Hook":
