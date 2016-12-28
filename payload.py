@@ -86,7 +86,7 @@ class Comment(Payload):
             self.number = self.data['merge_request']['id']
 	    self.title = self.data['merge_request']['title']
         elif 'issue' in self.data:
-            self.number = self.data['issue']['id']
+            self.number = self.data['issue']['iid']
 	    self.title = self.data['issue']['title']
         else:
             self.number = self.data['object_attributes']['id']
