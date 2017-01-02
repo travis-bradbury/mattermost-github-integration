@@ -69,7 +69,7 @@ class Issue(Payload):
 class Push(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
-	self.branch = self.data['ref'];
+	self.branch = self.data['ref'].replace('refs/heads/', '')
 
     def default(self):
         msg = """%s pushed to %s -> %s\n""" % (self.data['user_name'], self.repo_link(), self.branch)
