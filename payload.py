@@ -69,9 +69,10 @@ class Issue(Payload):
 class Push(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
+	self.branch = self.data['ref'];
 
     def default(self):
-        msg = """%s pushed to %s:\n""" % (self.date['user_name'], self.repo_link())
+        msg = """%s pushed to %s -> %s\n""" % (self.date['user_name'], self.repo_link(), self.branch)
 	for commit in self.data['commits']:
             msg += """* [%s](%s): %s""" % (commit['id'], commit['url'], commit['message'])
         return msg
