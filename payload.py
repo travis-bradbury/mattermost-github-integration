@@ -72,9 +72,9 @@ class Push(Payload):
 	self.branch = self.data['ref'];
 
     def default(self):
-        msg = """%s pushed to %s -> %s\n""" % (self.date['user_name'], self.repo_link(), self.branch)
+        msg = """%s pushed to %s -> %s\n""" % (self.data['user_name'], self.repo_link(), self.branch)
 	for commit in self.data['commits']:
-            msg += """* [%s](%s): %s""" % (commit['id'], commit['url'], commit['message'])
+            msg += """* [%s](%s): %s""" % (commit['id'][:7], commit['url'], commit['message'])
         return msg
 
 class Comment(Payload):
