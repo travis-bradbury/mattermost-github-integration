@@ -80,12 +80,14 @@ class Push(Payload):
 class Comment(Payload):
     def __init__(self, data):
         Payload.__init__(self, data)
+        self.id_prefix = "#"
         if 'commit' in self.data:
             self.number = self.data['commit']['id']
 	    self.title = self.data['commit']['title']
         elif 'merge_request' in self.data:
-            self.number = self.data['merge_request']['id']
+            self.number = self.data['merge_request']['iid']
 	    self.title = self.data['merge_request']['title']
+            self.id_prefix = "!"
         elif 'issue' in self.data:
             self.number = self.data['issue']['iid']
 	    self.title = self.data['issue']['title']
@@ -97,7 +99,7 @@ class Comment(Payload):
 
     def default(self):
         body = self.preview(self.body)
-        msg = """%s commented on [#%s %s](%s): %s""" % (self.user_link(), self.number, self.title, self.url, body)
+        msg = """%s commented on [%s%s %s](%s): %s""" % (self.user_link(), self.id_prefix, self.number, self.title, self.url, body)
         return msg
 
 class Pipeline(Payload):
